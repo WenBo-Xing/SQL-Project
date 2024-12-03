@@ -12,26 +12,26 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 def print_menu():
     menu = [
-        [" <<1>> ", "Insert data"],
-        [" <<2>> ", "TimesStamp Query:"],
-        [" <<3>> ", "Range Query"],
-        [" <<4>> ", "Delete Data"],
-        [" <<5>> ", "ID Query"],
-        [" <<6>> ", "Performance Test"],
+        [" <<1>> ", "     Insert data"],
+        [" <<2>> ", "     TimesStamp Query:"],
+        [" <<3>> ", "     Range Query"],
+        [" <<4>> ", "     Delete Data"],
+        [" <<5>> ", "     ID Query"],
+        [" <<6>> ", "     Performance Test"],
         [" <<7>> ", "Displays the first 20 pieces of data in the database"],
-        ["-" * 7, "-" * 51],
-        [" <<0>> ", "EXIT"],
+        ["-" * 7, "-" * 52],
+        [" <<0>> ", "     EXIT"],
     ]
 
     # Title
-    print("\n+---------+------------------------------------------------------+")
-    print(f"| {'Options':<4} | {'Operation':<52} |")
-    print("+---------+------------------------------------------------------+")
+    print("\n+---------+","-"*52,"+")
+    print(f"| {'Options':<4} | {'     Operation':<52} |")
+    print("+---------+","-"*52,"+")
 
     # Table Information
     for row in menu:
         print(f"| {row[0]:<4} | {row[1]:<52} |")
-    print("+---------+------------------------------------------------------+")
+    print("+---------+","-"*52,"+")
 
 
 def display_database_records(database_path, table_name, limit=20):
@@ -99,7 +99,6 @@ def main():
         print_menu()
         choice = input("\nInput Options  (1/2/3/4/5/6/7): ")
         
-    
         
         if choice == '1':
             timestamp = input("Input Timestamp (Format: YYYY-MM-DD HH:MM:SS): ")
@@ -112,8 +111,7 @@ def main():
                 print("Successful insert！")
             except ValueError as e:
                 print(f"Fail：{e}")
-                
-                
+                     
                 
         elif choice == '2':
             key = input("Input timeStamp (Format: YYYY-MM-DD HH:MM:SS): ")
@@ -199,8 +197,7 @@ def main():
             print("Displays the first 20 pieces of data in the database：")
             display_database_records(database_path, table_name, limit=20)
             
-        
-              
+          
             
         elif choice == '0':
             print("EXIT！")
