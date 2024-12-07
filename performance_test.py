@@ -49,13 +49,12 @@ def performance_test(bpt_class, num_records=1000):
     temp_db_path = tempfile.NamedTemporaryFile(delete=False, suffix=".db").name
 
     try:
-        # 初始化 B+ 树
+       
         bpt = bpt_class(order=20, database_path=temp_db_path, table_name="sensor_data")
 
         print("\nStart Test...")
         test_data = generate_test_data(num_records)
 
-        # 插入性能测试
         start_time = time.perf_counter()
         for record in test_data:
             bpt.insert(*record)
@@ -63,12 +62,12 @@ def performance_test(bpt_class, num_records=1000):
         insert_time = end_time - start_time
         print(f"Insert {num_records} Data use time: {insert_time:.2f} s")
 
-        # 范围查询基准测试
-        range_sizes = [10, 100, 1000,10000, min(num_records, 100000)]  # 定义多种范围大小
+       
+        range_sizes = [10, 100, 1000,10000, min(num_records, 100000)]  
         range_query_times = []
         for range_size in range_sizes:
-            start_key = test_data[0][0]  # 范围起点
-            end_index = min(range_size - 1, len(test_data) - 1)  # 范围终点
+            start_key = test_data[0][0]  
+            end_index = min(range_size - 1, len(test_data) - 1)  
             end_key = test_data[end_index][0]
 
             start_time = time.perf_counter()
@@ -78,7 +77,7 @@ def performance_test(bpt_class, num_records=1000):
             range_query_times.append((range_size, query_time))
             print(f"Range Query {range_size} records use time: {query_time:.6f} s")
 
-        # 单键查询测试
+       
         single_key = test_data[len(test_data) // 2][0]
         start_time = time.perf_counter()
         result = bpt.search(single_key)
@@ -86,11 +85,11 @@ def performance_test(bpt_class, num_records=1000):
         single_query_time = end_time - start_time
         print(f"Single key query use time: {single_query_time:.6f} s")
 
-        # 打印性能测试结果
+        
         performance_summary = [
             ["  <<Option Type>>   ", "time (s)"],
             ["  <<Insert>>        ", f"{insert_time:.2f}"],
-            *[  # 动态生成范围查询结果行
+            *[  
                 [f"  <<Range Query ({size} records)>>", f"{time:.6f}"]
                 for size, time in range_query_times
             ],
